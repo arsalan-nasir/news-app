@@ -13,8 +13,9 @@ import EastIcon from "@mui/icons-material/East";
 import EventIcon from "@mui/icons-material/Event";
 import moment from "moment";
 import LANGS from "../i18n";
+import React from "react";
 
-export const Article = ({ data, index, query, language }: ILanguage) => {
+const Article = ({ data, index, query, language }: ILanguage) => {
   const translation = LANGS[language];
 
   return (
@@ -22,7 +23,7 @@ export const Article = ({ data, index, query, language }: ILanguage) => {
       <Card sx={{ maxWidth: 500, height: 365, m: "0 auto" }}>
         <CardMedia
           sx={{ height: 140 }}
-          image={data.urlToImage}
+          image={data.urlToImage || require("../images/default-image.png")}
           title={data.title}
         />
         <CardContent sx={{ paddingTop: "0.5rem" }}>
@@ -87,3 +88,5 @@ export const Article = ({ data, index, query, language }: ILanguage) => {
     </Grid>
   );
 };
+
+export default React.memo(Article);

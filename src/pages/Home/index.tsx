@@ -1,26 +1,26 @@
-import _debounce from "lodash/debounce";
-import { useEffect, useState } from "react";
-import useNews from "../../hooks/news";
-import { Article } from "../../components/Article";
+import { useEffect } from "react";
+import Article from "../../components/Article";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
+import useNews from "../../hooks/news";
 
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  Box,
-  Container,
-  InputAdornment,
-  TextField,
-  Typography,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import LANGS from "../../i18n";
+import React from "react";
 
-const Home: React.FC = () => {
-  const [query, setQuery] = useState<any>("");
-  const [language, setLanguage] = useState<"en" | "ar">("en");
+interface Props {
+  query: string;
+  language: "en" | "ar";
+}
+
+const Home: React.FC<Props> = ({
+  query,
+  language,
+}: {
+  query: string;
+  language: "en" | "ar";
+}) => {
   const { error, news, loading } = useNews(query, language);
   const translation = LANGS[language];
 
@@ -39,53 +39,8 @@ const Home: React.FC = () => {
           <Typography variant="subtitle1" sx={{ fontWeight: "600" }}>
             {translation.FILTER_TITLE}
           </Typography>
+        </Box>
 
-          <TextField
-            type="search"
-            placeholder={translation.SEARCH_PLACEHOLDER}
-            onChange={_debounce((event) => setQuery(event.target.value), 1000)}
-            // variant="outlined"
-            sx={{
-              my: "1rem",
-              maxWidth: "30rem",
-            }}
-            fullWidth
-            size="small"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-        <Box>
-          <Select
-            sx={{
-              my: "1rem",
-              maxWidth: "30rem",
-            }}
-            fullWidth
-            size="small"
-            value={language}
-            label="Language"
-            onChange={(e: any) => setLanguage(e.target.value)}
-            style={{
-              backgroundColor: "background.default",
-              color: "text.primary",
-            }}
-            inputProps={{
-              classes: {
-                root: "background.default",
-                icon: "text.primary",
-              },
-            }}
-          >
-            <MenuItem value={"en"}>English</MenuItem>
-            <MenuItem value={"ar"}>{translation.ARABIC} </MenuItem>
-          </Select>
-        </Box>
         {loading ? (
           <Loading />
         ) : error ? (
@@ -121,4 +76,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default React.memo(Home);

@@ -1,26 +1,40 @@
 import { useParams, useNavigate } from "react-router";
-import { useSearchParams } from "react-router-dom";
 
 import useNews from "../../hooks/news";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import { Button, Box, Typography, Link } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useEffect } from "react";
+import React from "react";
 
 type ArticlePageParams = {
   id: string;
 };
 
-const ArticlePage: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const { error, news, loading } = useNews(
-    searchParams.get("query") || "",
-    searchParams.get("language")
-  );
+interface Props {
+  query: string;
+  language: "en" | "ar";
+}
+
+const ArticlePage: React.FC<Props> = ({
+  query,
+  language,
+}: {
+  query: string;
+  language: "en" | "ar";
+}) => {
+  const { error, news, loading } = useNews(query || "", language);
   const { id } = useParams<ArticlePageParams>();
   const index = id;
   const articleData = news.find((item) => item.title === index);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!articleData) {
+      navigate("/");
+    }
+  }, [articleData]);
 
   return (
     <>
@@ -109,4 +123,4 @@ const ArticlePage: React.FC = () => {
   );
 };
 
-export default ArticlePage;
+export default React.memo(ArticlePage);
