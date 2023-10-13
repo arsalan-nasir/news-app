@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 
-import useNews from "../hooks/news";
-import Error from "./Home/Error";
-import Loading from "./Home/Loading";
+import useNews from "../../hooks/news";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
 import { Button, Box, Typography, Link } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 

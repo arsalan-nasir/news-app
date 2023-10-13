@@ -1,9 +1,9 @@
 import _debounce from "lodash/debounce";
 import { useEffect, useState } from "react";
 import useNews from "../../hooks/news";
-import { Article } from "./Article";
-import Error from "./Error";
-import Loading from "./Loading";
+import { Article } from "../../components/Article";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
 
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -18,7 +18,7 @@ import {
 import Grid from "@mui/material/Grid";
 import LANGS from "../../i18n";
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   const [query, setQuery] = useState<any>("");
   const [language, setLanguage] = useState<"en" | "ar">("en");
   const { error, news, loading } = useNews(query, language);
@@ -88,10 +88,10 @@ export const Home: React.FC = () => {
         </Box>
         {loading ? (
           <Loading />
+        ) : error ? (
+          <Error error={error} />
         ) : (
           <>
-            {error && <Error error={error} />}
-
             <Typography
               variant="subtitle1"
               sx={{ fontWeight: "600" }}
@@ -120,3 +120,5 @@ export const Home: React.FC = () => {
     </>
   );
 };
+
+export default Home;

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./components/Home/Home";
-import ArticlePage from "./components/ArticlePage";
+import Home from "./pages/Home";
+import ArticlePage from "./pages/ArticleDetail";
 import { ThemeProvider } from "@emotion/react";
 import createTheme from "@mui/material/styles/createTheme";
 import { PaletteMode } from "@mui/material";

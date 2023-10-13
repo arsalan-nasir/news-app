@@ -1,4 +1,4 @@
-import { IArticle, ILanguage } from "../../model";
+import { ILanguage } from "../model";
 import {
   Typography,
   Card,
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import EastIcon from "@mui/icons-material/East";
 import EventIcon from "@mui/icons-material/Event";
 import moment from "moment";
-import LANGS from "../../i18n";
+import LANGS from "../i18n";
 
 export const Article = ({ data, index, query, language }: ILanguage) => {
   const translation = LANGS[language];
